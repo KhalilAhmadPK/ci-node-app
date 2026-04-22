@@ -1,7 +1,6 @@
 {
   "name": "ci-node-app",
   "version": "1.0.0",
-  "type": "module",
   "description": "Simple Node.js app with GitHub Actions CI pipeline",
   "main": "index.js",
   "scripts": {
