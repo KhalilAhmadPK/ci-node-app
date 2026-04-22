@@ -1,4 +1,4 @@
-export function isValidUrl(str) {
+function isValidUrl(str) {
   try {
     const url = new URL(str);
     return url.protocol === 'http:' || url.protocol === 'https:';
@@ -7,15 +7,15 @@ export function isValidUrl(str) {
   }
 }
 
-export function errorResponse(message, code = 400) {
+function errorResponse(message, code = 400) {
   return { success: false, error: message, code };
 }
 
-export function successResponse(data) {
+function successResponse(data) {
   return { success: true, data };
 }
 
-export function calcStats(numbers) {
+function calcStats(numbers) {
   if (!Array.isArray(numbers) || numbers.length === 0) {
     return null;
   }
@@ -28,3 +28,5 @@ export function calcStats(numbers) {
     max: Math.max(...numbers),
   };
 }
+
+module.exports = { isValidUrl, errorResponse, successResponse, calcStats };

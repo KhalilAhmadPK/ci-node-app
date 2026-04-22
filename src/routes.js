@@ -1,9 +1,7 @@
-import express from 'express';
-import { isValidUrl, errorResponse, successResponse, calcStats } from './utils.js';
-
+const express = require('express');
 const router = express.Router();
+const { isValidUrl, errorResponse, successResponse, calcStats } = require('./utils');
 
-// GET /api/health
 router.get('/health', (req, res) => {
   res.status(200).json(successResponse({
     status: 'healthy',
@@ -12,22 +10,17 @@ router.get('/health', (req, res) => {
   }));
 });
 
-// POST /api/validate-url
 router.post('/validate-url', (req, res) => {
   const { url } = req.body;
-
   if (!url) {
     return res.status(400).json(errorResponse('url field is required'));
   }
-
   const valid = isValidUrl(url);
   res.status(200).json(successResponse({ url, valid }));
 });
 
-// POST /api/stats
 router.post('/stats', (req, res) => {
   const { numbers } = req.body;
-
   if (!Array.isArray(numbers)) {
     return res.status(400).json(errorResponse('numbers must be an array'));
   }
@@ -37,13 +30,11 @@ router.post('/stats', (req, res) => {
   if (!numbers.every(n => typeof n === 'number')) {
     return res.status(400).json(errorResponse('all elements must be numbers'));
   }
-
   res.status(200).json(successResponse(calcStats(numbers)));
 });
 
-// 404 handler
 router.use((req, res) => {
   res.status(404).json(errorResponse('Route not found', 404));
 });
 
-export default router;
+module.exports = router;
